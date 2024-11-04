@@ -312,7 +312,7 @@ namespace NexusBootstrapperV2
         private void guna2Button4_Click(object sender, EventArgs e)
         {
             StepLabel.Text = "1/2 - Downloading";
-            string fileLink = "https://mega.nz/file/fCxAABDD#bA7gsebS6jQxrP3dTqm9ARVXBEaOjFzgJp_3oNw84rA"; // Replace with your Mega.nz file link
+            string fileLink = "https://mega.nz/file/fCxAABDD#bA7gsebS6jQxrP3dTqm9ARVXBEaOjFzgJp_3oNw84rA";
             downloadWorker.RunWorkerAsync(fileLink);
         }
 
