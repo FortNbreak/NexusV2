@@ -3,6 +3,7 @@ Nexus is a client for downloading and play SCP: Secret Laboratory on version 9.1
 
 # Building
 To build, you need the following NUGET Packages:
+- DiscordRPC
 - GunaUI 2
 - MegaApiClient
 - NewtonsoftJson
