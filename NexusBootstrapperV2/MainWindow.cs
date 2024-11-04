@@ -28,7 +28,7 @@ namespace NexusBootstrapperV2
         private DiscordRpcClient dcclient;
 
 
-        FontManager fontManager = new FontManager();
+        //FontManager fontManager = new FontManager();
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -53,7 +53,7 @@ namespace NexusBootstrapperV2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Fix this bullshit bug
+            // Fix this a bug that took 4 hours to fix then i realized i was being stupid
             this.TransparencyKey = Color.White;
 
             // Create a rounded rectangle region
@@ -62,12 +62,14 @@ namespace NexusBootstrapperV2
             // Apply the region to the form
             this.Region = Region.FromHrgn(region);
 
-            fontManager.SetFontToRodium(TitleLogo);
-            fontManager.SetFontToMonster(GameDetection, 10);
-            fontManager.SetFontToMonster(StepLabel, 15);
-            fontManager.SetFontToMonster(ClientLabel, 30);
-            fontManager.SetFontToMonster(IP, 20);
+            // Old font stuff. No longer relevant. If you are reading this, instead of pusing the actual font files, extract the raw font data with HxD and it will save you hours of pain.
+            //fontManager.SetFontToRodium(TitleLogo);
+            //fontManager.SetFontToMonster(GameDetection, 10);
+            //fontManager.SetFontToMonster(StepLabel, 15);
+            //fontManager.SetFontToMonster(ClientLabel, 30);
+            //fontManager.SetFontToMonster(IP, 20);
 
+            // Stuff for getting the windows version
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem");
 
             foreach (ManagementObject os in searcher.Get())
@@ -95,6 +97,8 @@ namespace NexusBootstrapperV2
             InitializeBackgroundWorkers();
         }
 
+        
+        // This is for handling the form movement. I am too lazy to swap this to the automatic handler I made for form movement.
         private void TitleBar_MouseDown(object sender, MouseEventArgs e)
         {
             lastPoint = new Point(e.X, e.Y);
@@ -120,6 +124,7 @@ namespace NexusBootstrapperV2
 
         }
 
+        // Pretty sure this is useless and might have been removed but was originally for debugging.
         private void button1_Click(object sender, EventArgs e)
         {
             GameDetection.Text = "Game Started: TEST.EXE | ProcessID";
@@ -128,6 +133,7 @@ namespace NexusBootstrapperV2
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // Stuff for detecting if the game is open. Needed for the RPC to be cool.
             string appExe = "SCPSL.exe";
             Process[] processes = Process.GetProcessesByName(appExe.Replace(".exe", ""));
             if (processes.Length > 0)
@@ -137,7 +143,7 @@ namespace NexusBootstrapperV2
                 GameDetection.Text = $"Game Detected: {appExe} | {pid}";
                 dcclient.SetPresence(new RichPresence()
                 {
-                    Details = "Nexus Bootstrapper V2.0.1",
+                    Details = "Nexus Bootstrapper V2.0",
                     State = "Playing SCP:SL v9.1.2",
                     Assets = new Assets()
                     {
@@ -152,7 +158,7 @@ namespace NexusBootstrapperV2
                 GameDetection.Text = "Waiting For Game Process";
                 dcclient.SetPresence(new RichPresence()
                 {
-                    Details = "Nexus Bootstrapper V2.0.1",
+                    Details = "Nexus Bootstrapper V2.0",
                     State = "In the menus",
                     Assets = new Assets()
                     {
@@ -189,7 +195,7 @@ namespace NexusBootstrapperV2
             Clipboard.SetText("68.50.38.219:7778");
         }
 
-        // MEGA API STUFF
+        // MEGA API Downloader for downloading the files. I ain't commenting all of this because it sucked to make and i ain't got time for allat
         private void InitializeBackgroundWorkers()
         {
             downloadWorker = new BackgroundWorker();
@@ -326,7 +332,7 @@ namespace NexusBootstrapperV2
             // Set the presence
             dcclient.SetPresence(new RichPresence()
             {
-                Details = "Nexus Bootstrapper V2.0.1",
+                Details = "Nexus Bootstrapper V2.0",
                 State = "In the menus",
                 Assets = new Assets()
                 {
